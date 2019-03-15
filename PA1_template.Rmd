@@ -29,21 +29,21 @@ activity$date<-as.Date(activity$date)
 To determine the mean total number of steps taken per day, we first calculate 
 the total number of steps per day
 
-```{r Total steps, echo=TRUE}
+```{r Total_steps, echo=TRUE}
 Steps_per_day <- aggregate(steps ~ date, activity, sum)
 ```
 
 Then a histogram is created to look at the  of the total number of steps taken 
 each day
 
-```{r Histogram steps, echo=TRUE}
+```{r Histogram_steps, echo=TRUE}
 hist(Steps_per_day$steps, col="red", breaks= 10, xlab="Number of steps",
      main = "Histogram of steps per day")
 ```
 
 Now the mean and the median of the number of steps are determined:
 
-```{r Mean steps, echo=TRUE}
+```{r Mean_steps, echo=TRUE}
 Daily_mean    <- mean(Steps_per_day$steps)
 Daily_median  <- median(Steps_per_day$steps)
 ```
@@ -56,7 +56,7 @@ median is `r Daily_median`.
 To find out what the average number of steps per 5-minute interval is we use the
 following R code. The results are shown in a time series plot
 
-```{r Interval steps, echo=TRUE}
+```{r Interval_steps, echo=TRUE}
 ## Calculate average number of steps per 5-minute interval
 Avg_per_int  <- aggregate(steps ~ interval, activity, mean)
 
@@ -68,7 +68,7 @@ plot(Avg_per_int$interval,Avg_per_int$steps,type="l",ylab="steps",
 Next we want to know which 5-minute interval, on average across all the days in 
 the dataset, contains the maximum number of steps?
 
-```{r Max steps, echo=TRUE}
+```{r Max_steps, echo=TRUE}
 filter(Avg_per_int,steps==max(steps))[1,1]
 ```
 
@@ -79,7 +79,7 @@ of steps
 
 First we calculate the total number of missing values in the dataset
 
-```{r Missing numbers, echo=TRUE}
+```{r Missing_numbers, echo=TRUE}
 missing<-sum(is.na(activity$steps))
 ```
 
@@ -88,7 +88,7 @@ This gives us that there are `r missing` missing values in the dataset
 Secondly we fill all of the missing values with the mean of the number of steps 
 of the corresponding 5-minute interval. For this a new dataset is created.
 
-```{r Imputed dataset, echo=TRUE}
+```{r Imputed_dataset, echo=TRUE}
 impute           <- function(x) replace(x,is.na(x),mean(x,na.rm=TRUE))
 activityImputed  <- ddply(activity,~interval,transform,steps=impute(steps))
 ```
@@ -96,7 +96,7 @@ activityImputed  <- ddply(activity,~interval,transform,steps=impute(steps))
 Now we will create another histogram with the total number of steps per day 
 using the newly created data
 
-```{r Imputed histogram, echo=TRUE}
+```{r Imputed_histogram, echo=TRUE}
 ##Calculate number of steps per day of imputed dataset
 Steps_per_day_imp <-aggregate(steps ~ date, activityImputed, sum)
 
@@ -108,7 +108,7 @@ hist(Steps_per_day_imp$steps, col="green", breaks= 10, xlab="Number of steps",
 Then we calculate the new mean and median and also calculate the difference with
 the original values.
 
-```{r Imputed mean, echo=TRUE}
+```{r Imputed_mean, echo=TRUE}
 Daily_mean_imp    <-mean(Steps_per_day_imp$steps)
 Daily_median_imp  <-median(Steps_per_day_imp$steps)
 
@@ -126,7 +126,7 @@ To find out if there is any difference between the activity pattern between
 weekdays and weekends, we need to create a variable that distinguishes between 
 the two. For the code to work we need to set locale to English.
 
-```{r weekend factor, echo=TRUE}
+```{r weekend_factor, echo=TRUE}
 Sys.setlocale("LC_TIME", "English")
 activityImputed$weekends <- ifelse(weekdays(activityImputed$date) 
                                 %in% c("Saturday","Sunday"),"weekend","weekday")
@@ -135,7 +135,7 @@ activityImputed$weekends <- ifelse(weekdays(activityImputed$date)
 Now we calculate the avreage number of steps per time interval for the weekdays 
 and weekends. The results are shown in a time series plot.
 
-```{r Interval days, echo=TRUE}
+```{r Interval_days, echo=TRUE}
 ##Average daily activity pattern weekdays versus weekends per 5-minute interval
 Avg_per_int <- aggregate(steps ~ interval+weekends, activityImputed, mean)
 

@@ -71,7 +71,7 @@ hist(Steps_per_day$steps, col="red", breaks= 10, xlab="Number of steps",
      main = "Histogram of steps per day")
 ```
 
-![](PA1_template_files/figure-html/Histogram steps-1.png)<!-- -->
+![](PA1_template_files/figure-html/Histogram_steps-1.png)<!-- -->
 
 Now the mean and the median of the number of steps are determined:
 
@@ -99,7 +99,7 @@ plot(Avg_per_int$interval,Avg_per_int$steps,type="l",ylab="steps",
      xlab="interval", main="Average steps per interval")
 ```
 
-![](PA1_template_files/figure-html/Interval steps-1.png)<!-- -->
+![](PA1_template_files/figure-html/Interval_steps-1.png)<!-- -->
 
 Next we want to know which 5-minute interval, on average across all the days in 
 the dataset, contains the maximum number of steps?
@@ -149,7 +149,7 @@ hist(Steps_per_day_imp$steps, col="green", breaks= 10, xlab="Number of steps",
      main = "Histogram of steps per day")
 ```
 
-![](PA1_template_files/figure-html/Imputed histogram-1.png)<!-- -->
+![](PA1_template_files/figure-html/Imputed_histogram-1.png)<!-- -->
 
 Then we calculate the new mean and median and also calculate the difference with
 the original values.
@@ -200,7 +200,7 @@ xyplot(steps~interval|weekends,data=Avg_per_int, type="l",layout=c(1,2),
        main = "Average Steps by weekday or weekend", col = "blue")
 ```
 
-![](PA1_template_files/figure-html/Interval days-1.png)<!-- -->
+![](PA1_template_files/figure-html/Interval_days-1.png)<!-- -->
 
 Conclusion:
 During weekdays there is more activity in the morning, but in the weekends there
